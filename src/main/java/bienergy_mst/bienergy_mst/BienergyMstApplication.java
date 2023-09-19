@@ -2,8 +2,17 @@ package bienergy_mst.bienergy_mst;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
+import bienergy_mst.bienergy_mst.netty.TCPServer;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.annotation.Bean;
+@Component
 @SpringBootApplication
+@RequiredArgsConstructor
 public class BienergyMstApplication {
 
 	public static void main(String[] args) {
