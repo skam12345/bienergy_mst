@@ -48,7 +48,6 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf buff = (ByteBuf) msg;
 		String bbu = ByteBufUtil.hexDump(buff).toUpperCase();
 		List<String> chargerId = execute.callLoginLsit();
-//		System.out.println(bbu.toString());
 		if(bbu.length() == (32 * 2)) {
 			copy = bbu.substring(2, 22);
 			System.out.println(copy);
