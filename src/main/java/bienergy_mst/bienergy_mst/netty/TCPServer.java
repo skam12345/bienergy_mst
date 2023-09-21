@@ -27,7 +27,7 @@ public class TCPServer {
             System.out.println(tcpPort.getPort());
     		serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
         } catch(InterruptedException e) {
-            Thread.currentThread().interrupt();
+            System.out.println("연결 끊겼어요!");
         }
     }
     
