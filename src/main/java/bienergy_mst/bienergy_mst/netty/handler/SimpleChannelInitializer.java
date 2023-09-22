@@ -30,33 +30,35 @@ public class SimpleChannelInitializer extends ChannelInitializer<SocketChannel>{
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         try {
-        	ChannelPipeline pipline01 = ch.pipeline();
-    		System.out.println(ch.remoteAddress());
-    		LoginHandler loginHandler = new LoginHandler();
-    		loginList.add(loginHandler);
-    		pipline01.addFirst(loginHandler);
-			Connection conn  = new MysqlConnection().OpenConnection();
-			QueryExcuteClass execute = new QueryExcuteClass(conn);
-			isLogin =  execute.callIsLogin();
-			ControlHandler control = new ControlHandler(conn);
-			controlList.add(control);		
-			pipline01.addLast(control);
-			boolean flag = true;
-			for(String login : isLogin) {
-				if(login.equals("Y")) {
-					isLogin =  execute.callIsLogin();
-					flag = false;
-				}else {
-					flag = true;
+			ExecutorService ext = Executors.newFixedThreadPool(1) {
+				ChannelPipeline pipline01 = ch.pipeline();
+				System.out.println(ch.remoteAddress());
+				LoginHandler loginHandler = new LoginHandler();
+				loginList.add(loginHandler);
+				pipline01.addFirst(loginHandler);
+				Connection conn  = new MysqlConnection().OpenConnection();
+				QueryExcuteClass execute = new QueryExcuteClass(conn);
+				isLogin =  execute.callIsLogin();
+				ControlHandler control = new ControlHandler(conn);
+				controlList.add(control);		
+				pipline01.addLast(control);
+				boolean flag = true;
+				for(String login : isLogin) {
+					if(login.equals("Y")) {
+						isLogin =  execute.callIsLogin();
+						flag = false;
+					}else {
+						flag = true;
+					}
 				}
+				System.out.println("충전기 하나 로그인 되었습니다.");
+				System.out.println("명령을 대기합니다.");
+				new ControlPop().run(conn, execute, pipline01, loginList.get(count), controlList.get(count), count);
+				count++;
 			}
-			System.out.println("충전기 하나 로그인 되었습니다.");
-			System.out.println("명령을 대기합니다.");
-			new ControlPop().run(conn, execute, pipline01, loginList.get(count), controlList.get(count), count);
-			count++;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("넘어감");
 		}
     }
 }
