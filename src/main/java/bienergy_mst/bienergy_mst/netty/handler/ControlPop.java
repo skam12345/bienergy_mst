@@ -58,6 +58,7 @@ public class ControlPop {
 							System.out.println("서버와 충전기가 로그인 되었습니다.");
 							System.out.println("명령 대기중...");
 							run(conn, execute, pipline, loginHandler, control, count);
+							loginCheckThread.shutdown();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
