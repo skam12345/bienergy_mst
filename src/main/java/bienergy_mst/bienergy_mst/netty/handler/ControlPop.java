@@ -53,7 +53,7 @@ public class ControlPop {
 				}
 			});
 		}else {
-			System.out.printf("잠시만 기다려주세요.\n충전기로부터 서버와의 로그인 대기중 입니다.");
+			System.out.printf("잠시만 기다려주세요.\n충전기로부터 서버와의 로그인 대기중 입니다.\n");
 			ExecutorService loginCheckThread = Executors.newFixedThreadPool(1);
 			loginCheckThread.execute(() -> {
 				try {
