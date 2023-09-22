@@ -28,6 +28,8 @@ public class TCPServer {
     		serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
         } catch(InterruptedException e) {
             System.out.println("연결 끊겼어요!");
+        } catch(OutOfMemoryError e) {
+            System.out.println("넘어감");
         }
     }
     
