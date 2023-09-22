@@ -54,7 +54,7 @@ public class SimpleChannelInitializer extends ChannelInitializer<SocketChannel>{
 					}
 					System.out.println("충전기 하나 로그인 되었습니다.");
 					System.out.println("명령을 대기합니다.");
-					new ControlPop().run(conn, execute, pipline01, loginList.get(count), controlList.get(count), count);
+					// new ControlPop().run(conn, execute, pipline01, loginList.get(count), controlList.get(count), count);
 					count++;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
