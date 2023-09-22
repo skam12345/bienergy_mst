@@ -57,7 +57,7 @@ public class ControlPop {
 			ExecutorService loginCheckThread = Executors.newFixedThreadPool(1);
 			loginCheckThread.execute(() -> {
 				try {
-					while(loginHandler.getCopy() != null) {
+					while(loginHandler.getCopy() == null) {
 						Thread.sleep(4000);
 					}
 					System.out.println("서버와 충전기가 로그인 되었습니다.");
