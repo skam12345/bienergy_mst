@@ -16,7 +16,11 @@ import org.springframework.context.annotation.Bean;
 public class BienergyMstApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BienergyMstApplication.class, args);
+		try {
+			SpringApplication.run(BienergyMstApplication.class, args);
+		} catch(OutOfMemoryError e) {
+			System.out.println("넘어감");
+		}
 	}
 	private final TCPServer tcpServer;
 
