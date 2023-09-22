@@ -48,7 +48,21 @@ public class ControlPop {
 						}
 					}
 				}else {
-					run(conn, execute, pipline, loginHandler, control, count);
+					System.out.printf("잠시만 기다려주세요.\n충전기로부터 서버와의 로그인 대기중 입니다.");
+					ExecutorService loginCheckThread = Executors.newFixedThreadPool(1);
+					loginCheckThread.execute(() -> {
+						try {
+							while(loginHandler.getCopy() != null) {
+								Thread.sleep(4000);
+							}
+							System.out.println("서버와 충전기가 로그인 되었습니다.");
+							System.out.println("명령 대기중...");
+							run(conn, execute, pipline, loginHandler, control, count);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}); 
 					Thread.sleep(1000);
 				}
 			}catch(Exception e) {
