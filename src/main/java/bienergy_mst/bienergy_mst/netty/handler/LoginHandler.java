@@ -1,6 +1,7 @@
 package bienergy_mst.bienergy_mst.netty.handler;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -33,6 +34,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
     private Boolean stopped = true;
     private Boolean complete = false;
     private int remainPower;
+	private Boolean login = false, beat = false, record = false, current = false, error = false;
     public LoginHandler() {
     	conn = new MysqlConnection().OpenConnection();
     	execute = new QueryExcuteClass(conn);
@@ -49,6 +51,27 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 		String bbu = ByteBufUtil.hexDump(buff).toUpperCase();
 		List<String> chargerId = execute.callLoginLsit();
 		if(bbu.length() == (32 * 2)) {
+			if(!login) {
+				login = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
 			copy = bbu.substring(2, 22);
 			System.out.println(copy);
 			ByteBuf writeBuf = Unpooled.directBuffer();
@@ -65,6 +88,27 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
     	}else if(bbu.length() == (21 * 2) && bbu.contains(copy.substring(0, 12))) {
+			if(!beat) {
+				beat = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
 			ByteBuf writeBuf = Unpooled.directBuffer();
 			writeBuf.writeBytes(new HeartBeat(copy).heartBeatAnswered());
 			ChannelFuture cf = ctx.writeAndFlush(writeBuf);
@@ -79,6 +123,27 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 148 && bbu.contains(copy.substring(0, 12))) {
+			if(!error) {
+				error = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
 			String copys = bbu.substring(2, 22);
 			String alarm_code = bbu.substring(28, 30);
 			ByteBuf writeBuf = Unpooled.directBuffer();
@@ -95,6 +160,27 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 54 && bbu.substring(26, 28).equals("02") && bbu.contains(copy.substring(0, 12))) {
+			if(!current) {
+				current = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
 			execute.sendStartUpdate(copy.substring(0, 12), model.getPlugNo());
 			execute.insertReceivce(model, copy.substring(0, 12));
 			remain = model.getCharge();
@@ -112,6 +198,28 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 54 && bbu.subSequence(26, 28).equals("03") && bbu.contains(copy.substring(0, 12))) {
+			current = false;
+			if(!current) {
+				current = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
 			execute.sendStopUpdate(copy.substring(0, 12), model.getPlugNo());
 			stopped = false;
 			if(!complete) {
@@ -120,6 +228,28 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				execute.completeReceive(copy.substring(0, 12), model);
 			}
 		}else if(bbu.length() == 982 && bbu.contains(copy.substring(0, 12))) {
+			if(!record) {
+				record = true;
+				List<String> data = new ArrayList<String>();
+				String sec = "";
+				for(int i = 0; i < bbu.length(); i++) {
+					sec += bbu.charAt(i);
+					if(i % 2 == 0) {
+						if(i == bbu.length() - 1) {
+							data.add(sec);
+						}else {
+							data.add(sec + " ");
+						}
+						sec = "";
+					}
+				}
+				String total = "";
+				for(int i = 0; i < data.size(); i++) {
+					total = total + data.get(i).toString();
+				}
+				System.out.println(total);
+			}
+			System.out.println(bbu);
 			String copyed = bbu.substring(2, 22);
 			String serialCode = bbu.substring(58, 88);
 			ByteBuf writeBuf = Unpooled.directBuffer();
