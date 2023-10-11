@@ -50,7 +50,6 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf buff = (ByteBuf) msg;
 		String bbu = ByteBufUtil.hexDump(buff).toUpperCase();
 		List<String> chargerId = execute.callLoginLsit();
-		System.out.println(bbu);
 		if(bbu.length() == (32 * 2)) {
 			if(!login) {
 				login = true;
@@ -71,7 +70,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("로그인 : " + total);
 			}
 			copy = bbu.substring(2, 22);
 			System.out.println(copy);
@@ -108,7 +107,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("생명주기 : " + total);
 			}
 			ByteBuf writeBuf = Unpooled.directBuffer();
 			writeBuf.writeBytes(new HeartBeat(copy).heartBeatAnswered());
@@ -143,7 +142,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("에러 보고 : " + total);
 			}
 			String copys = bbu.substring(2, 22);
 			String alarm_code = bbu.substring(28, 30);
@@ -180,7 +179,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("충전 시작 알림 : " +  total);
 			}
 			execute.sendStartUpdate(copy.substring(0, 12), model.getPlugNo());
 			execute.insertReceivce(model, copy.substring(0, 12));
@@ -219,7 +218,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("충전 중지 알림 : " + total);
 			}
 			execute.sendStopUpdate(copy.substring(0, 12), model.getPlugNo());
 			stopped = false;
@@ -248,7 +247,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				for(int i = 0; i < data.size(); i++) {
 					total = total + data.get(i).toString();
 				}
-				System.out.println(total);
+				System.out.println("충전 기록 현황 요청 : " + total);
 			}
 			System.out.println(bbu);
 			String copyed = bbu.substring(2, 22);
