@@ -57,7 +57,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
+					if(sec.length() == 2) {
 						if(i == bbu.length() - 1) {
 							data.add(sec);
 						}else {
@@ -94,7 +94,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
+					if(sec.length() == 2) {
 						if(i == bbu.length() - 1) {
 							data.add(sec);
 						}else {
@@ -123,12 +123,11 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 148 && bbu.contains(copy.substring(0, 12))) {
-			error = true;
 			List<String> data = new ArrayList<String>();
 			String sec = "";
 			for(int i = 0; i < bbu.length(); i++) {
 				sec += bbu.charAt(i);
-				if(i % 2 == 0) {
+				if(sec.length() == 2) {
 					if(i == bbu.length() - 1) {
 						data.add(sec);
 					}else {
@@ -164,7 +163,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
+					if(sec.length() == 2) {
 						if(i == bbu.length() - 1) {
 							data.add(sec);
 						}else {
@@ -203,7 +202,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
+					if(sec.length() == 2) {
 						if(i == bbu.length() - 1) {
 							data.add(sec);
 						}else {
@@ -232,7 +231,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
+					if(sec.length() == 2) {
 						if(i == bbu.length() - 1) {
 							data.add(sec);
 						}else {
