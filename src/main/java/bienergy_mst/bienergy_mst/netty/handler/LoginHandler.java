@@ -123,27 +123,25 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 148 && bbu.contains(copy.substring(0, 12))) {
-			if(!error) {
-				error = true;
-				List<String> data = new ArrayList<String>();
-				String sec = "";
-				for(int i = 0; i < bbu.length(); i++) {
-					sec += bbu.charAt(i);
-					if(i % 2 == 0) {
-						if(i == bbu.length() - 1) {
-							data.add(sec);
-						}else {
-							data.add(sec + " ");
-						}
-						sec = "";
+			error = true;
+			List<String> data = new ArrayList<String>();
+			String sec = "";
+			for(int i = 0; i < bbu.length(); i++) {
+				sec += bbu.charAt(i);
+				if(i % 2 == 0) {
+					if(i == bbu.length() - 1) {
+						data.add(sec);
+					}else {
+						data.add(sec + " ");
 					}
+					sec = "";
 				}
-				String total = "";
-				for(int i = 0; i < data.size(); i++) {
-					total = total + data.get(i).toString();
-				}
-				System.out.println("에러 보고 : " + total);
 			}
+			String total = "";
+			for(int i = 0; i < data.size(); i++) {
+				total = total + data.get(i).toString();
+			}
+			System.out.println("에러 보고 : " + total);
 			String copys = bbu.substring(2, 22);
 			String alarm_code = bbu.substring(28, 30);
 			ByteBuf writeBuf = Unpooled.directBuffer();
