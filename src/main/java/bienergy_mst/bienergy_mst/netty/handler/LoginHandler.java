@@ -81,6 +81,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if(future.isSuccess()) {
+						System.out.println("로그인 전송 성공");
 						execute.loginUpdate(copy.substring(0, 12));
 					}else {
 						System.out.println("전송 실패");
@@ -116,7 +117,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if(future.isSuccess()) {
-						System.out.println("전송");
+						System.out.println("생명 전송 성공");
 					}else {
 						System.out.println("전송실패");
 					}
@@ -154,7 +155,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if(future.isSuccess()) {
-						System.out.println("전송");
+						System.out.println("에러 전송 성공");
 					}else {
 						System.out.println("전송실패");
 					}
