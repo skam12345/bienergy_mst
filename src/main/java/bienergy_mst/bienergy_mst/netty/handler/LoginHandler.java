@@ -89,8 +89,8 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 			});
     	}else if(bbu.length() == (21 * 2) && bbu.contains(copy.substring(0, 12))) {
 			if(!beat) {
-				beat = true;
 				List<String> data = new ArrayList<String>();
+				beat = true;
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
 					sec += bbu.charAt(i);
@@ -123,8 +123,8 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		}else if(bbu.length() == 148 && bbu.contains(copy.substring(0, 12))) {
-			List<String> data = new ArrayList<String>();
 			if(!error) {
+				List<String> data = new ArrayList<String>();
 				error = true;
 				String sec = "";
 				for(int i = 0; i < bbu.length(); i++) {
